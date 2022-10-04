@@ -5,13 +5,10 @@ entity tb_codec is
 end;
 
 architecture hibrida of tb_codec is
-    signal clk: in std_logic;
+    signal clk: std_logic;
     
-    signal interrupt, read_signal, write_signal: in std_logic;
-    signal valid: out std_logic;
-
-    signal codec_data_in: in std_logic_vector(7 downto 0);
-    signal codec_data_out: out std_logic_vector(7 downto 0);
+    signal interrupt, read_signal, write_signal, valid: std_logic;
+    signal codec_data_in, codec_data_out: std_logic_vector(7 downto 0);
 
 begin
     t1 : entity work.mem()

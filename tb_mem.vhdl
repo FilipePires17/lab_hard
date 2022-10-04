@@ -5,12 +5,11 @@ entity tb_mem is
 end;
 
 architecture hibrida of tb_mem is
-    signal clk: in std_logic;
+    signal clk, data_read, data_write, data_read, data_write: std_logic;
     
-    signal data_read, data_write: out std_logic;
-    signal data_addr: in std_logic_vector(addr_width-1 downto 0);
-    signal data_in: in std_logic_vector(data_width-1 downto 0);
-    signal data_out: out std_logic_vector((data_width*4)-1 downto 0);
+    signal data_addr: std_logic_vector(addr_width-1 downto 0);
+    signal data_in: std_logic_vector(data_width-1 downto 0);
+    signal data_out: std_logic_vector((data_width*4)-1 downto 0);
 
 begin
     t1 : entity work.mem()
