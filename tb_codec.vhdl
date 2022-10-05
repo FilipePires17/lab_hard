@@ -11,7 +11,7 @@ architecture hibrida of tb_codec is
     signal codec_data_in, codec_data_out: std_logic_vector(7 downto 0);
 
 begin
-    t1 : entity work.mem()
+    t1 : entity work.mem(comportamental)
           port map (clk, interrupt, read_signal, write_signal, valid, codec_data_in, codec_data_out);
     check : process is
         type     is record
