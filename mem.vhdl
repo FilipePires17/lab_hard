@@ -1,5 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity mem is
     generic (
@@ -24,14 +25,15 @@ architecture comportamental of mem is
     begin
         
     process (clock)
-        variable mem : stack;
+        variable memoria : stack := (others => "00000000");
     begin
-        if data_read = '1' then
-            data_out <= mem(data_addr);
+        data_out <= "00000000";
+        if data_read = '1' and data_write = '0' then
+            data_out <= memoria(to_integer(unsigned(data_addr)));
         end if;
 
-        if falling_edge(clock) and data_write = '1' then
-            mem(data_addr) := data_in;
+        if falling_edge(clock) and data_write = '1' and data_read = '0' then
+            memoria(to_integer(unsigned(data_addr))) := data_in;
         end if;
     end process;
 
