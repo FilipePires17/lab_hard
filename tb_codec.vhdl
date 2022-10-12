@@ -8,7 +8,8 @@ end;
 architecture hibrida of tb_codec is
 
     signal interrupt, read_signal, write_signal, valid: std_logic;
-    signal codec_data_in, codec_data_out: std_logic_vector(7 downto 0);
+    signal codec_data_in: bit_vector(7 downto 0); 
+    signal codec_data_out: std_logic_vector(7 downto 0);
 
 begin
 
@@ -18,7 +19,8 @@ begin
     check : process is
         type linha is record
             interrupt, read_signal, write_signal, valid : std_logic;
-            codec_data_in, codec_data_out : std_logic_vector(7 downto 0);
+            codec_data_in : bit_vector(7 downto 0);
+            codec_data_out : std_logic_vector(7 downto 0);
         end record;
 
         type vet_linha is array (natural range <>) of linha;
