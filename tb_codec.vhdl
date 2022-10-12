@@ -8,7 +8,7 @@ end;
 architecture hibrida of tb_codec is
 
     signal interrupt, read_signal, write_signal, valid: std_logic;
-    signal codec_data_in: bit_vector(7 downto 0); 
+    signal codec_data_in: std_logic_vector(7 downto 0); 
     signal codec_data_out: std_logic_vector(7 downto 0);
 
 begin
@@ -19,14 +19,13 @@ begin
     check : process is
         type linha is record
             interrupt, read_signal, write_signal, valid : std_logic;
-            codec_data_in : bit_vector(7 downto 0);
+            codec_data_in : std_logic_vector(7 downto 0);
             codec_data_out : std_logic_vector(7 downto 0);
         end record;
 
         type vet_linha is array (natural range <>) of linha;
         constant tab_vdd : vet_linha :=
-
-        --  (interrupt, r_s, w_s, valid, c_d_i, c_d_o)
+        --(interrupt, r_s, w_s, valid, c_d_i, c_d_o)
         (( '0', '0', '0', '0', "00000000", "00000000" ),
          ( '1', '0', '1', '0', "00000000", "01010101" ),
          ( '0', '0', '0', '0', "00000000", "00000000" ),
@@ -34,7 +33,7 @@ begin
          ( '0', '0', '0', '0', "00000000", "00000000" ),
          ( '1', '0', '1', '0', "00000000", "00101010" ),
          ( '0', '0', '0', '0', "00000000", "00000000" ),
-         ( '0', '0', '0', '0', "00000000", "00000000" ),
+         ( '1', '1', '0', '0', "11111111", "00000000" ),
          ( '0', '0', '0', '0', "00000000", "00000000" ));
 
         begin
