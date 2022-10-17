@@ -21,15 +21,15 @@ begin
     process (interrupt)
         file arq_load_in : text open read_mode is "input.txt";
         file arq_load_out : text open append_mode is "output.txt";
-        variable text_line, teste : line;
+        variable text_line : line;
         variable aux : bit_vector(7 downto 0);
     begin
         valid <= '0';
         codec_data_out <= "00000000";
         if rising_edge(interrupt) then
             if read_signal = '1' and write_signal = '0' then
-                write(teste, to_bitvector(codec_data_in));
-                writeline(arq_load_out, teste);
+                write(text_line, to_bitvector(codec_data_in));
+                writeline(arq_load_out, text_line);
                 valid <= '1', '0' after 1 ns;
             end if;
             if read_signal = '0' and write_signal = '1' and not endfile(arq_load_in) then
