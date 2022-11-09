@@ -28,3 +28,12 @@ entity cpu is
         codec_data_in: out std_logic_vector(7 downto 0)
     );
 end entity;
+
+architecture clean of cpu is
+
+begin
+
+    imem: entity work.mem(comportamental)
+            port map(clk, data_read, data_write, data_addr, data_in, data_out)
+
+end architecture;

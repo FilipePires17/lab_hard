@@ -14,7 +14,7 @@ entity mem is
         data_write: in std_logic;
         data_addr: in std_logic_vector(addr_width-1 downto 0);
         data_in: in std_logic_vector(data_width-1 downto 0);
-        data_out: out std_logic_vector(data_width-1 downto 0)
+        data_out: out std_logic_vector((data_width*4)-1 downto 0)
     );
 end entity;
             
@@ -28,6 +28,9 @@ begin
     begin
         data_out <= "00000000";
         if data_read = '1' and data_write = '0' then
+            for i in (data_width*4)-1 downto 0 loop
+                
+            end loop;
             data_out <= memoria(to_integer(unsigned(data_addr)));
         end if;
 

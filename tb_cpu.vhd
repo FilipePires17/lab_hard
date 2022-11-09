@@ -5,7 +5,7 @@ entity tb_cpu is
 end;
 
 architecture hibrida of tb_cpu is
-    signal clk, halt: in std_logic;
+    signal clk, halt: std_logic;
     
     signal instruction_in, data_out : std_logic_vector(data_width-1 downto 0);
     signal instruction_addr, data_addr: std_logic_vector(addr_width-1 downto 0);
