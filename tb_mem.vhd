@@ -10,7 +10,7 @@ architecture hibrida of tb_mem is
 
     signal data_addr: std_logic_vector(15 downto 0);
     signal data_in: std_logic_vector(7 downto 0);
-    signal data_out: std_logic_vector(7 downto 0);
+    signal data_out: std_logic_vector(31 downto 0);
 
 begin
     t1 : entity work.mem(comportamental)
@@ -21,18 +21,18 @@ begin
         clock, data_read, data_write: std_logic;
         data_addr: std_logic_vector(15 downto 0);
         data_in: std_logic_vector(7 downto 0);
-        data_out: std_logic_vector(7 downto 0);
+        data_out: std_logic_vector(31 downto 0);
         end record;
 
         type vet_linha is array (natural range <>) of linha;
         constant tab_vdd : vet_linha :=
 
-        (('1', '0', '0', "0000000000000000", "00000000", "00000000"),
-         ('0', '0', '1', "0000000000000001", "10101010", "00000000"),
-         ('1', '1', '0', "0000000000000001", "00000000", "10101010"),
-         ('0', '0', '1', "0000000001110000", "00101010", "00000000"),
-         ('1', '1', '0', "0000000001110000", "00101010", "00101010"),
-         ('0', '1', '0', "0000000001110000", "00101010", "00000000"));
+        (('1', '0', '0', "0000000000000000", "00000000", "00000000000000000000000000000000"),
+         ('0', '0', '1', "0000000000000001", "10101010", "00000000000000000000000000000000"),
+         ('1', '1', '0', "0000000000000001", "00000000", "10101010000000000000000000000000"),
+         ('0', '0', '1', "0000000001110000", "00101010", "00000000000000000000000000000000"),
+         ('1', '1', '0', "0000000001110000", "00101010", "00101010000000000000000000000000"),
+         ('0', '1', '0', "0000000001110000", "00101010", "00000000000000000000000000000000"));
 
         begin
             for i in tab_vdd'range loop
@@ -45,7 +45,9 @@ begin
                 wait for 1 ns;
 
                 assert data_out = tab_vdd(i).data_out report "Erro data_out " 
-                    & integer'image(to_integer(unsigned(data_out)));
+                    & integer'image(to_integer(signed(data_out)))
+                    & " - "
+                    & integer'image(to_integer(signed(tab_vdd(i).data_out)));
             end loop;
 
             report "Fim dos testes";
