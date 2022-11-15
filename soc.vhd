@@ -42,7 +42,7 @@ begin
     io_codec: entity work.codec(io_sim)
         port map(codec_interrupt,codec_read,codec_write,codec_valid,codec_data_in,codec_data_out);
 
-    process (clock)
+    process
         file arq : text open read_mode is firmware_filename;
         variable text_line: line;
         variable auxiliar: bit_vector(7 downto 0);
@@ -65,6 +65,8 @@ begin
         else
             halt <= '1';
             addr_aux <= instruction_addr;
+            wait for 1 ns;
         end if;
+        wait on clock;
     end process;
 end architecture;
